@@ -51,6 +51,13 @@ if not os.path.exists(model_filename):
 log = logging.getLogger("app")
 P = PALETTE
 
+import os
+import subprocess
+
+if not os.path.exists('model_bundle.joblib'):
+  # Lance l'entraînement si le fichier n'existe pas
+  subprocess.run(['python', 'train.py'])
+
 
 # --------------------------------------------------------------------------- #
 # Exceptions métier
