@@ -19,6 +19,13 @@ import config
 from config import pretty
 from theme import (PALETTE, card, chip, header, inject_css, kpi_card, kv_rows, section_title, style_figure)
 
+import os
+import subprocess
+
+if not os.path.exists('model_bundle.joblib'):
+  # Lance l'entraînement si le fichier n'existe pas
+  subprocess.run(['python', 'train.py'])
+
 log = logging.getLogger("app")
 P = PALETTE
 
