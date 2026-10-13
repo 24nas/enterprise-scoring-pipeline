@@ -6,12 +6,11 @@ Scoring de risque de défaut (XGBoost) avec explicabilité locale et globale (SH
 
 ```
 credit-risk-studio/
-├── .streamlit/config.toml   # thème Streamlit
-├── artifacts/               # sorties de train.py (ignorées par Git)
-├── app.py                   # dashboard (scoring + SHAP + données)
-├── config.py                # chemins, constantes, libellés
-├── theme.py                 # CSS, composants HTML, style Plotly
-├── train.py                 # entraînement, évaluation, sauvegarde
+├── .streamlit/config.toml               
+├── app.py                   
+├── config.py                
+├── theme.py                 
+├── train.py                 
 ├── requirements.txt
 └── README.md
 ```
