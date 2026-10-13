@@ -1,6 +1,6 @@
 """Credit Risk Studio : dashboard de scoring et d'explicabilité locale (XGBoost + SHAP).
 
-Lancement : streamlit run app.py   (après `python train.py`)
+Lancement : streamlit run app.py
 """
 from __future__ import annotations
 
@@ -19,45 +19,8 @@ import config
 from config import pretty
 from theme import (PALETTE, card, chip, header, inject_css, kpi_card, kv_rows, section_title, style_figure)
 
-import os
-import subprocess
-
-import os
-import subprocess
-import streamlit as st
-
-# Vérifie si le modèle existe, sinon lance l'entraînement
-model_filename = 'model_bundle.joblib'
-
-if not os.path.exists(model_filename):
-  with st.spinner(
-      "Modèle non trouvé. Entraînement en cours (veuillez patienter quelques"
-      " instants)..."
-  ):
-    # Exécute le script train.py
-    result = subprocess.run(['python', 'train.py'], capture_output=True, text=True)
-
-    # Vérifie si l'entraînement a réussi
-    if result.returncode != 0:
-      st.error(f"Erreur lors de l'entraînement :\n{result.stderr}")
-      st.stop()
-    else:
-      st.success("Entraînement terminé avec succès !")
-
-# --- Suite de votre code (chargement du modèle) ---
-# import joblib
-# model = joblib.load(model_filename)
-
 log = logging.getLogger("app")
 P = PALETTE
-
-import os
-import subprocess
-
-if not os.path.exists('model_bundle.joblib'):
-  # Lance l'entraînement si le fichier n'existe pas
-  subprocess.run(['python', 'train.py'])
-
 
 # --------------------------------------------------------------------------- #
 # Exceptions métier
@@ -224,7 +187,7 @@ def gauge_chart(proba: float, threshold: float, color: str) -> go.Figure:
 
 def distribution_chart(sample: pd.DataFrame, proba: float) -> go.Figure:
     fig = go.Figure(go.Histogram(x=sample["pred_proba"] * 100, nbinsx=40, marker=dict(color=P["primary"], opacity=.78,
-                                 line=dict(color="white", width=1)), hovertemplate="%{x:.1f} % : %{y} dossiers<extra></extra>"))
+                                   line=dict(color="white", width=1)), hovertemplate="%{x:.1f} % : %{y} dossiers<extra></extra>"))
     fig.add_vline(x=proba * 100, line=dict(color=P["danger"], width=2, dash="dash"),
                   annotation_text="Ce dossier", annotation_font=dict(color=P["danger"], size=11))
     fig.update_xaxes(title="Probabilité de défaut (%)", ticksuffix="%")
