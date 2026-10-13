@@ -1,4 +1,5 @@
 # Credit Risk Studio
+https://enterprise-scoring-pipeline.streamlit.app/
 
 Scoring de risque de défaut (XGBoost) avec explicabilité locale et globale (SHAP), servi par un dashboard Streamlit.
 
