@@ -22,9 +22,31 @@ from theme import (PALETTE, card, chip, header, inject_css, kpi_card, kv_rows, s
 import os
 import subprocess
 
-if not os.path.exists('model_bundle.joblib'):
-  # Lance l'entraînement si le fichier n'existe pas
-  subprocess.run(['python', 'train.py'])
+import os
+import subprocess
+import streamlit as st
+
+# Vérifie si le modèle existe, sinon lance l'entraînement
+model_filename = 'model_bundle.joblib'
+
+if not os.path.exists(model_filename):
+  with st.spinner(
+      "Modèle non trouvé. Entraînement en cours (veuillez patienter quelques"
+      " instants)..."
+  ):
+    # Exécute le script train.py
+    result = subprocess.run(['python', 'train.py'], capture_output=True, text=True)
+
+    # Vérifie si l'entraînement a réussi
+    if result.returncode != 0:
+      st.error(f"Erreur lors de l'entraînement :\n{result.stderr}")
+      st.stop()
+    else:
+      st.success("Entraînement terminé avec succès !")
+
+# --- Suite de votre code (chargement du modèle) ---
+# import joblib
+# model = joblib.load(model_filename)
 
 log = logging.getLogger("app")
 P = PALETTE
